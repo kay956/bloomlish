@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Bloomlish</title>
+    <style>
+      /* Modern font stack */
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+      :root {
+        --color-bg: #ffffff;
+        --color-text: #374151;
+        --color-accent: #2563eb;
+        --color-gray-light: #f3f4f6;
+        --transition-duration: 0.3s;
+        --border-radius: 0.75rem;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        margin: 2rem;
+      }
+
+      nav {
+        max-width: 360px;
+        margin: 0 auto;
+        border: 1px solid var(--color-gray-light);
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 6px rgb(0 0 0 / 0.05);
+        background: var(--color-bg);
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 1rem 0;
+      }
+
+      li {
+        border-top: 1px solid var(--color-gray-light);
+      }
+      li:first-child {
+        border-top: none;
+      }
+
+      a.toggle-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        color: var(--color-text);
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+        transition: background-color var(--transition-duration);
+      }
+
+      a.toggle-button:hover,
+      a.toggle-button:focus {
+        background-color: var(--color-gray-light);
+        outline: none;
+      }
+
+      /* Arrow icon */
+      a.toggle-button::after {
+        content: "▸";
+        transition: transform var(--transition-duration);
+        font-size: 1rem;
+        color: var(--color-accent);
+      }
+      a.toggle-button[aria-expanded="true"]::after {
+        transform: rotate(90deg);
+      }
+
+      /* Content container */
+      .content-panel {
+        overflow: hidden;
+        max-height: 0;
+        padding: 0 1.5rem;
+        background-color: #f9fafb;
+        color: #4b5563;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        transition: max-height var(--transition-duration) ease, padding var(--transition-duration);
+        border-bottom-left-radius: var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
+      }
+      .content-panel.expanded {
+        max-height: 200px; /* sufficient max height to show content */
+        padding: 1rem 1.5rem;
+      }
+    </style>
+</head>
+
+<body>
+
+    <!-- navbar -->
+    
+    <nav aria-label="Primary Navigation">
+        <div class="logo">
+            <a href="#">
+                <img src="BloomlishBUKU_20250603_105456_0000.png" alt="Logo Bloomlish">
+            </a>
+        </div>
+        </nav>
+        <ul>
+            <li>
+              <a href="#" class="toggle-button" aria-expanded="false" aria-controls="panel1" id="button1" >Daily Life</a>
+              <div id="panel1" class="content-panel" role="region" aria-labelledby="button1">
+                Explore tips and stories about everyday activities, habits, and lifestyle improvements.
+              </div>
+            </li>
+            <li>
+              <a href="about.html" class="toggle-button" aria-expanded="false" aria-controls="panel2" id="button2">About</a>
+              <div id="panel2" class="content-panel" role="region" aria-labelledby="button2">
+                Learn more about our mission, team, and values that drive our projects and vision.
+              </div>
+            </li>
+            <li>
+              <a href="#" class="toggle-button" aria-expanded="false" aria-controls="panel3" id="button3">Contact</a>
+              <div id="panel3" class="content-panel" role="region" aria-labelledby="button3">
+                Get in touch with us via email, phone, or visit our office for personal assistance.
+              </div>
+            </li>
+          </ul>
+
+    <!-- Isi Pertama -->
+    <div class="container-1 center">
+        <h1>
+            Bloomlish
+        </h1>
+        <div class="paragraft1">
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+        </div>
+    </div>
+
+    <!-- kotak pilihan -->
+
+    <div class="kotak-pilihan">
+        <div class="container-poto">
+            <img src="1.jpeg" alt="img1">
+        </div>
+    </div>
+
+    <script>
+      // Accordion toggle logic
+      document.querySelectorAll('a.toggle-button').forEach(button => {
+        button.addEventListener('click', event => {
+          event.preventDefault();
+
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          const controlledPanelId = button.getAttribute('aria-controls');
+          const controlledPanel = document.getElementById(controlledPanelId);
+
+          // Close all panels
+          document.querySelectorAll('a.toggle-button').forEach(btn => {
+            btn.setAttribute('aria-expanded', 'false');
+            const panel = document.getElementById(btn.getAttribute('aria-controls'));
+            panel.classList.remove('expanded');
+          });
+
+          // Toggle current panel if it was previously closed
+          if (!expanded) {
+            button.setAttribute('aria-expanded', 'true');
+            controlledPanel.classList.add('expanded');
+          }
+        });
+      });
+    </script>
+</body>
+</html>
